@@ -24,11 +24,13 @@ items = [
 
 
 def home(request):
-    text = """
-    <h1>"Изучаем django"</h1>
-    <strong>Автор</strong>: <i>Иванов И.П.</i>
-    """
-    return HttpResponse(text)
+   # text = """
+   # <h1>"Изучаем django"</h1>
+   # <strong>Автор</strong>: <i>Иванов И.П.</i>
+   # """
+   # return HttpResponse(text)
+
+   return render(request, "index.html")
 
 
 def about(request):
@@ -52,5 +54,13 @@ def item(request, item_id):
             return HttpResponse(text)
         
     return HttpResponse(f"Not found")
+
+def getitems(request):
+    text = "<h2> Список товаров <h2>"
+    for item in items:
+        text += f""" <li><a href="/item/{item["id"]}"> {item["name"]} <li> """
+    text += "</ol>"
+    return HttpResponse(text)
+
 
     

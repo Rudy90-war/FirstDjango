@@ -4,3 +4,8 @@
 2. 'source django_venv/bin/activate
 3. 'pip install -r requirements.txt'
 4. 'python manage.py runserver'
+
+##Дополнительно
+1. Дополнение для шаблона Django
+    install baptisteo
+добавить в settings.json
