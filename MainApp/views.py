@@ -3,13 +3,7 @@ from django.http import HttpResponse
 
 # Create your views here.
 
-Creator = {
-    "Имя":"Максим",
-    "Отчество": "Александрович",
-    "Фамилия": "Рудковский",
-    "телефон": "8-923-600-01-02",
-    "email": "rudy@mail.ru"
-}
+
 
 
 items = [
@@ -33,14 +27,16 @@ def home(request):
 
 
 def about(request):
-    text = f"""
-    Имя: <b>{Creator["Имя"]}</b><br>
-    Отчество: <b>{Creator["Отчество"]}</b><br>
-    Фамилия: <b>{Creator["Фамилия"]}</b><br>
-    телефон: <b>{Creator["телефон"]}</b><br>
-    email: <b>{Creator["email"]}</b><br>
-    """
-    return HttpResponse(text)
+   
+    author = {
+    "name":"Максим",
+    "middle_name": "Александрович",
+    "last_name": "Рудковский",
+    "phone": "8-923-600-01-02",
+    "email": "rudy@mail.ru"
+    }
+   
+    return render(request, "about.html", {"author": author})
 
 def item(request, item_id):
     for item in items:
@@ -55,11 +51,10 @@ def item(request, item_id):
     return HttpResponse(f"Not found")
 
 def getitems(request):
-    text = "<h2> Список товаров <h2>"
-    for item in items:
-        text += f""" <li><a href="/item/{item["id"]}"> {item["name"]} <li> """
-    text += "</ol>"
-    return HttpResponse(text)
+    context = {
+        "items": items
+    }
+    return render(request, "items_ls.html", context)
 
 
     
