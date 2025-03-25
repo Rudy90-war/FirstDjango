@@ -39,15 +39,22 @@ def about(request):
     return render(request, "about.html", {"author": author})
 
 def item(request, item_id):
-    for item in items:
-        if item['id'] == item_id:
-            text = f"""
-            <h2> Имя: {item["name"]}<h2>
-            <p>  Количество: {item['quantity']} </p>
-            <p>  <a href = "/items"> Назад к списку товаров </a>
-             """
-            return HttpResponse(text)
+   # for item in items:
+    #    if item['id'] == item_id:
+     #       text = f"""
+     #       <h2> Имя: {item["name"]}<h2>
+      #      <p>  Количество: {item['quantity']} </p>
+       #     <p>  <a href = "/items"> Назад к списку товаров </a>
+        #     """
+         #   return HttpResponse(text)
         
+  #  return HttpResponse(f"Not found")
+    item = next((item for item in items if item['id'] == item_id), None)
+    if item is not None:
+        context = {
+            "item": item
+        }
+        return render(request, "item_page.html", context)
     return HttpResponse(f"Not found")
 
 def getitems(request):
