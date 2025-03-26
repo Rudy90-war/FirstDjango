@@ -5,4 +5,5 @@ class Item(models.Model):
     name = models.CharField(max_length=100)
     brand = models.CharField(max_length=100)
     count = models.PositiveIntegerField()
+    descriptions = models.TextField(max_length=200, default='Описание элемента')
     
