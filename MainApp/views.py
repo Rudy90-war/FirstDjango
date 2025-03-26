@@ -49,7 +49,8 @@ def item(request, item_id):
          #   return HttpResponse(text)
         
   #  return HttpResponse(f"Not found")
-    item = next((item for item in items if item['id'] == item_id), None)
+  
+    item = Item.objects.get(id=item_id)
     if item is not None:
         context = {
             "item": item
