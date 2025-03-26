@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound
 from MainApp.models import Item
+from django.core.exceptions import ObjectDoesNotExist
 # Create your views here.
 
 
@@ -38,25 +39,20 @@ def about(request):
    
     return render(request, "about.html", {"author": author})
 
-def item(request, item_id):
-   # for item in items:
-    #    if item['id'] == item_id:
-     #       text = f"""
-     #       <h2> Имя: {item["name"]}<h2>
-      #      <p>  Количество: {item['quantity']} </p>
-       #     <p>  <a href = "/items"> Назад к списку товаров </a>
-        #     """
-         #   return HttpResponse(text)
-        
-  #  return HttpResponse(f"Not found")
-  
+def item(request, item_id: int):
+   try:
     item = Item.objects.get(id=item_id)
-    if item is not None:
+    colors = []
+    if item.colors.exists():
+       colors = item.colors.all()
+   except ObjectDoesNotExist:
+        return HttpResponseNotFound (f"Item with id={item_id} not found")
+   else:
         context = {
-            "item": item
-        }
+            "item": item,
+            "colors": colors}
         return render(request, "item_page.html", context)
-    return HttpResponse(f"Not found")
+    
 
 def getitems(request):
     items = Item.objects.all()
