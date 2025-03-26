@@ -14,6 +14,8 @@ python manage.py dumpdata MainApp --indent 4 > ./fixtures/items.json
 ## Загрузить данные из БД
 python manage.py loaddata ./fixtures/items.json
 
+### Выгрузить только модель items
+python manage.py dumpdata MainApp --indent 4 > ./fixtures/only_items.json
 
 ##Дополнительно
 1. Дополнение для шаблона Django
